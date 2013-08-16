@@ -1,0 +1,46 @@
+@(graphs: List[data.Graph], graphForm: Form[data.Graph])
+
+@import helper._
+@import helpers.BootstrapHelper._
+
+@main("OTP Deployer", "graph") {
+    
+    @sidebar(graphs, "")
+
+	<!-- main content -->
+   	<div class="col-lg-9">
+
+   		<h3>Add graph</h3>
+   		
+
+	@helper.form(action = routes.Graphs.submit, 'id -> "form") {
+        
+        @if(graphForm.hasGlobalErrors){
+			<div class="alert alert-error">
+			     
+			     @for(validationError <- graphForm.globalErrors){
+			          @validationError.message
+			     }
+			     
+			</div>
+		}
+        
+        <fieldset>
+       	
+       		 
+           	@bsText(graphForm("name"))
+           	@bsText(graphForm("description"))
+           
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Create">
+            <a href="@routes.Graphs.index" class="btn">Cancel</a>
+        </div>
+       
+        
+    }
+
+   	</div>
+
+}

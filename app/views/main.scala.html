@@ -1,0 +1,35 @@
+@(title: String, selected: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("/public", "stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("/public", "bootstrap/3.0/css/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("/public", "bootstrap/3.0/css/bootstrap-glyphicons.css")">
+        <script src="@routes.Assets.at("/public", "javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("/public", "bootstrap/3.0/js/bootstrap.js")" type="text/javascript"></script>
+    </head>
+    <body>
+
+    	<div class="navbar">
+	    	<div class="container">
+			  <a class="navbar-brand @if(selected == "home") {active}" href="@routes.Application.index()"><span class="glyphicon glyphicon-cog"></span>  @title</a>
+			  <ul class="nav navbar-nav">
+			    <li @if(selected == "graph") {class="active"}><a href="@routes.Graphs.index()"><span class="glyphicon glyphicon-folder-close"></span>  Graphs</a></li>
+			    <li @if(selected == "gtfs") {class="active"}><a href="@routes.Gtfs.index()"><span class="glyphicon glyphicon-random"></span>  GTFS</a></li>
+			    <li @if(selected == "osm") {class="active"}><a href=""><span class="glyphicon glyphicon-globe"></span>  OSM</a></li>
+			    <li @if(selected == "validation") {class="active"}><a href="#"><span class="glyphicon glyphicon-ok"></span> Validation</a></li>
+			    <li @if(selected == "config") {class="active"}><a href="#"><span class="glyphicon glyphicon-wrench"></span> Configuration</a></li>
+			  </ul>
+			</div>
+		</div>
+
+		<div class="container">
+
+       	 @content
+
+    	</div>
+    </body>
+</html>

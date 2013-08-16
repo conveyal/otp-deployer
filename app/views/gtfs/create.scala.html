@@ -1,0 +1,45 @@
+@(gtfsForm: Form[data.Gtfs])
+
+@import helper._
+@import helpers.BootstrapHelper._
+
+@main("OTP Deployer", "gtfs") {
+   
+	<!-- main content -->
+   	<div class="col-lg-12">
+
+   		<h3>Add GTFS</h3>
+   		
+
+	@helper.form(action = routes.Gtfs.submit, 'id -> "form", 'enctype -> "multipart/form-data") {
+        
+        @if(gtfsForm.hasGlobalErrors){
+			<div class="alert alert-error">
+			     
+			     @for(validationError <- gtfsForm.globalErrors){
+			          @validationError.message
+			     }
+			     
+			</div>
+		}
+        
+        <fieldset>
+       	
+       		 
+           	@bsText(gtfsForm("name"))
+           	@bsText(gtfsForm("description"))
+           	@bsFile(gtfsForm("gtfsFile"))
+           
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Create">
+            <a href="@routes.Gtfs.index" class="btn">Cancel</a>
+        </div>
+       
+        
+    }
+
+   	</div>
+
+}

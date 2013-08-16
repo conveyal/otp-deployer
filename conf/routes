@@ -1,0 +1,30 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           		  controllers.Application.index()
+
+# graph views
+GET     /graphs/			                  controllers.Graphs.index()
+GET     /graphs/refresh			              controllers.Graphs.refresh()
+GET     /graph/create			              controllers.Graphs.create()
+POST    /graph/submit			              controllers.Graphs.submit()
+GET     /graph/:graphId                       controllers.Graphs.graph(graphId)
+POST     /graph/addGtfs					       controllers.Graphs.addGtfs()
+
+# gtfs views
+GET     /gtfs/								  controllers.Gtfs.index()
+GET     /gtfs/refresh			              controllers.Gtfs.refresh()
+GET     /gtfs/create			              controllers.Gtfs.create()
+POST    /gtfs/submit			              controllers.Gtfs.submit()
+POST    /gtfs/update			              controllers.Gtfs.update()
+GET     /gtfs/:gtfsId                         controllers.Gtfs.gtfs(gtfsId)
+GET     /gtfs/:gtfsId/:versionId              controllers.Gtfs.gtfsDetail(gtfsId, versionId)
+POST    /gtfs/select/:gtfsId/:versionId       controllers.Gtfs.select(gtfsId, versionId)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# Map data directory storage from /data
+GET     /data/*file                 controllers.Assets.at(path="/data", file)

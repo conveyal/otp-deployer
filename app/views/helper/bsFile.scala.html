@@ -1,0 +1,6 @@
+@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: FieldConstructor, lang: play.api.i18n.Lang)
+
+
+@input(field, args.filter(_._1 != 'type):_*) { (id, name, value, htmlArgs) =>
+    <input type="file" class="form-control" placeholder="@name" id="@id" name="@name" value="@value" @toHtmlArgs(htmlArgs)>
+}

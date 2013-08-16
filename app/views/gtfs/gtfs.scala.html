@@ -1,0 +1,90 @@
+@(selectedGtfs: data.Gtfs, versions: List[data.GtfsVersion])
+
+@import helper._
+@import helpers.BootstrapHelper._
+
+@main("OTP Deployer", "gtfs") {
+    
+	<!-- main content -->
+   	<div class="col-lg-12">
+	
+		<h3><span class="glyphicon glyphicon-random"></span> <span style="margin-left: 0.5em;">@selectedGtfs.name</span></h3>
+		
+		<div class="row">
+  			<div class="col-lg-2 text-right"><strong>GTFS Id:</strong></div>
+  			<div class="col-lg-10">@selectedGtfs.id</div>
+		</div>
+		<div class="row" style="margin-top: 1em;">
+  			<div class="col-lg-2 text-right"><strong>Created:</strong></div>
+  			<div class="col-lg-10">@selectedGtfs.created	</div>
+		</div>
+		<div class="row">
+  			<div class="col-lg-2 text-right"><strong>Modified:</strong></div>
+  			<div class="col-lg-10">@selectedGtfs.modified	</div>
+		</div>
+		<div class="row" style="margin-top: 1em;" >
+  			<div class="col-lg-2 text-right"><strong>Description:</strong></div>
+  			<div class="col-lg-10">@selectedGtfs.description</div>
+		</div>
+		
+		
+		<div class="row" style="margin-top: 1em;" >
+  			<div class="col-lg-2 text-right"><strong>Update GTFS</strong></div>
+  			<div class="col-lg-10">
+
+				<form action="@routes.Gtfs.update()" method="POST" enctype="multipart/form-data">
+			        <fieldset>
+						<div class="form-group ">
+	    
+							<input type="hidden" name="gtfsId" value="@selectedGtfs.id"/>
+							<input type="file" name="gtfsFile"/>
+							
+						</div>
+						
+						<input type="submit" class="btn primary" value="Update"/>
+	           
+			        </fieldset>
+			        
+			        
+			    </form>
+
+			</div>
+		</div>
+		
+
+		<table class="table  table-hover"  style="margin-top: 1em;">
+			<th>Current</th>
+			<th>Version Id</th>
+			<th>Uploaded</th>
+			<th>Description</th>
+			<th>Valid From</th>
+			<th>Valid To</th>
+			<th>Agencies</th>
+			<th>Routes</th>
+			<th>Stops</th>
+			<th>Trips</th>
+			<th>Stop Times</th>
+			<tbody>
+			@for(version <- versions) {
+				<tr>
+					<td>@if(selectedGtfs.currentVersion == version.versionId) {<span class="glyphicon glyphicon-ok"></span>}else{<form action="@routes.Gtfs.select(selectedGtfs.id, version.versionId)" method="POST"><input type="submit" class="btn btn-xs" value="Select"/></form>}</td>
+					<td><a href="@routes.Gtfs.gtfsDetail(selectedGtfs.id, version.versionId)">@version.versionId</a></td>
+					<td>@version.modified</td>
+					<td>@version.description</td>
+					<td>@version.firstCalendarDate</td>
+					<td>@version.lastCalendarDate</td>
+					<td>@version.agencyCount</td>
+					<td>@version.routeCount</td>
+					<td>@version.stopCount</td>
+					<td>@version.tripCount</td>
+					<td>@version.stopTimeCount</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+		
+	
+				
+   	</div>
+
+}

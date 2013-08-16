@@ -1,0 +1,58 @@
+/* Main sidebar
+-------------------------------------------------- */
+
+/* By default it's not affixed in mobile views, so undo that */
+.otp-sidebar.affix {
+  position: static;
+}
+
+/* First level of nav */
+.otp-sidenav {
+  margin-top: 0px;
+  margin-bottom: 30px;
+  padding-top:    10px;
+  padding-bottom: 10px;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #f7f5fa;
+  border-radius: 5px;
+}
+
+/* All levels of nav */
+.otp-sidebar .nav > li > a {
+  display: block;
+  color: #777777;
+  padding: 5px 20px;
+}
+.otp-sidebar .nav > li > a:hover,
+.otp-sidebar .nav > li > a:focus {
+  text-decoration: none;
+  background-color: #e5e3e9;
+  border-right: 1px solid #dbd8e0;
+}
+.otp-sidebar .nav > .active > a,
+.otp-sidebar .nav > .active:hover > a,
+.otp-sidebar .nav > .active:focus > a {
+  font-weight: bold;
+  color: #565656;
+  background-color: transparent;
+  border-right: 1px solid #565656;
+}
+
+.otp-sidebar .divider {
+	height: 1px;
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: #e5e5e5;
+}
+
+/* Nav: second level (shown on .active) */
+.otp-sidebar .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  margin-bottom: 8px;
+}
+.otp-sidebar .nav .nav > li > a {
+  padding-top:    3px;
+  padding-bottom: 3px;
+  padding-left: 30px;
+  font-size: 90%;
+}
