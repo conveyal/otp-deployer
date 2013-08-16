@@ -11,8 +11,7 @@ SETUP
  
  Requires Play Framework 2.1+
  
- From project directory 
- 1 "play run"
+ From project directory: "play run"
  
  Open web browser to http://localhost:9000/
  
