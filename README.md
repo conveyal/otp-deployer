@@ -17,6 +17,3 @@ SETUP
  
  
 All data is stored in [project root]/data -- no database required!
-
-
-kpw
