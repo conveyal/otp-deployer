@@ -13,6 +13,7 @@
 			<th>Modified</th>
 			<th>GTFS Id</th>
 			<th>Version Id</th>
+			<th>Managed</th>
 			<tbody>
 			@for(feed <- gtfs) {
 				<tr>
@@ -21,10 +22,13 @@
 					<td>@feed.modified</td>
 					<td>@feed.id</td>
 					<td>@feed.currentVersion</td>
+					<td>@if(feed.apiManaged) {<span class="glyphicon glyphicon-ok"></span>}</td>
 				</tr>
 			}
 			</tbody>
 		</table>
+		
+		<a href="@routes.Gtfs.create()"><span class="glyphicon glyphicon-random"></span> Create New GTFS</a>
    	</div>
 
 }

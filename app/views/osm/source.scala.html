@@ -1,0 +1,81 @@
+@(selectedOsm: data.OsmSource, versions: List[data.OsmVersion])
+
+@import helper._
+@import helpers.BootstrapHelper._
+
+@main("OTP Deployer", "osm") {
+    
+	<!-- main content -->
+   	<div class="col-lg-12">
+	
+		<h3><span class="glyphicon glyphicon-random"></span> <span style="margin-left: 0.5em;">@selectedOsm.name</span></h3>
+		
+		<div class="row">
+  			<div class="col-lg-2 text-right"><strong>OSM Id:</strong></div>
+  			<div class="col-lg-10">@selectedOsm.id</div>
+		</div>
+		<div class="row" style="margin-top: 1em;">
+  			<div class="col-lg-2 text-right"><strong>Created:</strong></div>
+  			<div class="col-lg-10">@selectedOsm.created	</div>
+		</div>
+		<div class="row">
+  			<div class="col-lg-2 text-right"><strong>Modified:</strong></div>
+  			<div class="col-lg-10">@selectedOsm.modified	</div>
+		</div>
+		<div class="row" style="margin-top: 1em;" >
+  			<div class="col-lg-2 text-right"><strong>Description:</strong></div>
+  			<div class="col-lg-10">@selectedOsm.description</div>
+		</div>
+		
+		
+		<div class="row" style="margin-top: 1em;" >
+  			<div class="col-lg-2 text-right"><strong>Update OSM Source</strong></div>
+  			<div class="col-lg-10">
+
+				<form action="@routes.Osm.update()" method="POST" enctype="multipart/form-data">
+			        <fieldset>
+						<div class="form-group ">
+	    
+							<input type="hidden" name="osmSourceId" value="@selectedOsm.id"/>
+							<input type="file" name="osmFile"/>
+							
+						</div>
+						
+						<input type="submit" class="btn primary" value="Update"/>
+	           
+			        </fieldset>
+			        
+			        
+			    </form>
+
+			</div>
+		</div>
+		
+
+		<table class="table  table-hover"  style="margin-top: 1em;">
+			<th>Current</th>
+			<th>Version Id</th>
+			<th>Uploaded</th>
+			<th>Description</th>
+			<th>Ways</th>
+			<th>Nodes</th>
+
+			<tbody>
+			@for(version <- versions) {
+				<tr>
+					<td>@if(selectedOsm.currentVersion == version.versionId) {<span class="glyphicon glyphicon-ok"></span>}else{<form action="@routes.Osm.select(selectedOsm.id, version.versionId)" method="POST"><input type="submit" class="btn btn-xs" value="Select"/></form>}</td>
+					<td>@version.versionId</td>
+					<td>@version.modified</td>
+					<td>@version.description</td>
+					<td>@version.wayCount</td>
+					<td>@version.nodeCount</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+		
+	
+				
+   	</div>
+
+}

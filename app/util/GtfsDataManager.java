@@ -8,7 +8,7 @@ import java.util.List;
 
 import data.Graph;
 import data.Gtfs;
-import data.OsmExtract;
+import data.OsmSource;
 
 public class GtfsDataManager extends DataManager {
 	

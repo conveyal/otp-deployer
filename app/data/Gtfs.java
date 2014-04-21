@@ -14,10 +14,6 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.geotools.geojson.geom.GeometryJSON;
 import org.onebusaway.gtfs.impl.GtfsDaoImpl;
 import org.onebusaway.gtfs.model.Agency;
@@ -27,6 +23,10 @@ import org.onebusaway.gtfs.serialization.GtfsReader;
 
 import akka.util.Timeout;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -47,6 +47,8 @@ public class Gtfs extends JsonModel implements Comparable<Gtfs> {
 	//GtfsVersion summary = new GtfsVersion();
 	
 	public String currentVersion = "";
+
+	public Boolean apiManaged = false;
 	
 	public List<String> gtfsVersions = new ArrayList<String>();
 	
@@ -112,6 +114,13 @@ public class Gtfs extends JsonModel implements Comparable<Gtfs> {
 		}
 		
 		this.save();
+	}
+
+	public void checkVersion() {
+		
+		if(this.apiManaged) {
+			
+		}
 	}
 	
 	public void addFile(final File  gtfsFile) {

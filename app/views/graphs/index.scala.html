@@ -1,12 +1,30 @@
-@(graphs: List[data.Graph], graphId: String)
+@(graphs: List[data.Graph])
 
 @main("OTP Deployer", "graph") {
     
-   @sidebar(graphs, graphId)
-
 	<!-- main content -->
-   	<div class="col-lg-9">
+   	<div class="col-lg-12">
 		
+		<h3><span class="glyphicon glyphicon-folder-close"></span> <span style="margin-left: 0.5em;">Graphs</span></h3>
+		
+		<table class="table  table-hover">
+			<th>Name</th>
+			<th>Description</th>
+			<th>Modified</th>
+			<th>Graph Id</th>
+			<tbody>
+			@for(graph <- graphs) {
+				<tr>
+					<td><a href="@routes.Graphs.graph(graph.id)">@graph.name</a></td>
+					<td>@graph.description</td>
+					<td>@graph.modified</td>
+					<td>@graph.id</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+		
+		<a href="@routes.Graphs.create()"><span class="glyphicon glyphicon-folder-open"></span> Create New Graph</a>
    	</div>
 
 }

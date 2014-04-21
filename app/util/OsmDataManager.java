@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import data.Graph;
-import data.OsmExtract;
+import data.OsmSource;
 
 public class OsmDataManager extends DataManager {
 	
-	private ArrayList<OsmExtract> osmList = new ArrayList<OsmExtract>();
-	private HashMap<String, OsmExtract> idOsmList = new HashMap<String, OsmExtract>();
-	private HashMap<String, OsmExtract> nameOsmList = new HashMap<String, OsmExtract>();
+	private ArrayList<OsmSource> osmList = new ArrayList<OsmSource>();
+	private HashMap<String, OsmSource> idOsmList = new HashMap<String, OsmSource>();
+	private HashMap<String, OsmSource> nameOsmList = new HashMap<String, OsmSource>();
 	
 	public OsmDataManager() {
 		
@@ -21,7 +21,7 @@ public class OsmDataManager extends DataManager {
 		
 	}
 	
-	public OsmExtract getOsmById(String id) {
+	public OsmSource getOsmById(String id) {
 		
 		return idOsmList.get(id);	
 		
@@ -31,12 +31,12 @@ public class OsmDataManager extends DataManager {
 		
 		osmList.clear();
 		
-		File rootDirectory = OsmExtract.getRootDirectory();
+		File rootDirectory = OsmSource.getRootDirectory();
 		
 		for(File osmDir : rootDirectory.listFiles()) {
 			String id = osmDir.getName();
 			
-			OsmExtract osm = OsmExtract.load(id);
+			OsmSource osm = OsmSource.load(id);
 			
 			if(osm != null) {
 				osmList.add(osm);
@@ -48,7 +48,7 @@ public class OsmDataManager extends DataManager {
 		Collections.sort(osmList);
 	}
 	
-	public List<OsmExtract> getOsm() {
+	public List<OsmSource> getOsm() {
 		
 		return osmList;
 		

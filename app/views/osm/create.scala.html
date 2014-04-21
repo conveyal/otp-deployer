@@ -1,0 +1,45 @@
+@(osmForm: Form[data.OsmSource])
+
+@import helper._
+@import helpers.BootstrapHelper._
+
+@main("OTP Deployer", "osm") {
+   
+	<!-- main content -->
+   	<div class="col-lg-12">
+
+   		<h3>Add OSM Source</h3>
+   		
+
+	@helper.form(action = routes.Osm.submit, 'id -> "form", 'enctype -> "multipart/form-data") {
+        
+        @if(osmForm.hasGlobalErrors){
+			<div class="alert alert-error">
+			     
+			     @for(validationError <- osmForm.globalErrors){
+			          @validationError.message
+			     }
+			     
+			</div>
+		}
+        
+        <fieldset>
+       	
+       		 
+           	@bsText(osmForm("name"))
+           	@bsText(osmForm("description"))
+           	@bsFile(osmForm("osmFile"))
+           
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Create">
+            <a href="@routes.Osm.index" class="btn">Cancel</a>
+        </div>
+       
+        
+    }
+
+   	</div>
+
+}

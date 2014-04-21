@@ -11,7 +11,9 @@ GET     /graphs/refresh			              controllers.Graphs.refresh()
 GET     /graph/create			              controllers.Graphs.create()
 POST    /graph/submit			              controllers.Graphs.submit()
 GET     /graph/:graphId                       controllers.Graphs.graph(graphId)
-POST     /graph/addGtfs					       controllers.Graphs.addGtfs()
+POST    /graph/addGtfs					      controllers.Graphs.addGtfs()
+POST    /graph/addOsm						  controllers.Graphs.addOsm()
+
 
 # gtfs views
 GET     /gtfs/								  controllers.Gtfs.index()
@@ -22,6 +24,18 @@ POST    /gtfs/update			              controllers.Gtfs.update()
 GET     /gtfs/:gtfsId                         controllers.Gtfs.gtfs(gtfsId)
 GET     /gtfs/:gtfsId/:versionId              controllers.Gtfs.gtfsDetail(gtfsId, versionId)
 POST    /gtfs/select/:gtfsId/:versionId       controllers.Gtfs.select(gtfsId, versionId)
+
+# osm views
+GET     /osm/			                  	  controllers.Osm.index()
+GET     /osm/create			              	  controllers.Osm.create()
+POST    /osm/submit			                  controllers.Osm.submit()
+POST    /osm/update			              	  controllers.Osm.update()
+GET     /osm/:osmSourceId                     controllers.Osm.source(osmSourceId)
+POST    /osm/select/:osmSourceId/:versionId   controllers.Osm.select(osmSourceId, versionId)
+
+
+# webhook
+GET     /api/build			                  controllers.Graphs.webhook(id:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

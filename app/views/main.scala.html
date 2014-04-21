@@ -19,9 +19,9 @@
 			  <ul class="nav navbar-nav">
 			    <li @if(selected == "graph") {class="active"}><a href="@routes.Graphs.index()"><span class="glyphicon glyphicon-folder-close"></span>  Graphs</a></li>
 			    <li @if(selected == "gtfs") {class="active"}><a href="@routes.Gtfs.index()"><span class="glyphicon glyphicon-random"></span>  GTFS</a></li>
-			    <li @if(selected == "osm") {class="active"}><a href=""><span class="glyphicon glyphicon-globe"></span>  OSM</a></li>
-			    <li @if(selected == "validation") {class="active"}><a href="#"><span class="glyphicon glyphicon-ok"></span> Validation</a></li>
-			    <li @if(selected == "config") {class="active"}><a href="#"><span class="glyphicon glyphicon-wrench"></span> Configuration</a></li>
+			    <li @if(selected == "osm") {class="active"}><a href="@routes.Osm.index()"><span class="glyphicon glyphicon-globe"></span>  OSM</a></li>
+			    <li @if(selected == "validation") {class="active"} class="disabled"><a href="#"><span class="glyphicon glyphicon-ok"></span> Validation</a></li>
+			    <li @if(selected == "config") {class="active"} class="disabled"><a href="#"><span class="glyphicon glyphicon-wrench"></span> Configuration</a></li>
 			  </ul>
 			</div>
 		</div>

@@ -7,13 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controllers.Application;
-
 import play.Play;
 import play.data.validation.Constraints.Required;
 import util.HashUtils;
@@ -24,8 +23,11 @@ import util.JsonModel;
 public class Graph extends JsonModel implements Comparable<Graph> {
 	
 	public static String TYPE = "graph";
+
+	public String obaBundleId;
 	
 	public List<String> gtfsFiles = new ArrayList<String>();
+	public List<String> osmFiles = new ArrayList<String>();
 	
 	public Graph() {
 		
@@ -72,11 +74,49 @@ public class Graph extends JsonModel implements Comparable<Graph> {
 	
 	public void addGtfs(Gtfs gtfs) {
 		
+		if(gtfsFiles.contains(gtfs.id))
+			return;
+
 		gtfsFiles.add(gtfs.id);
 		
 		save();
 	}
 	
+	public void addOsm(OsmSource osmSource) {
+		
+		if(osmFiles.contains(osmSource.id))
+			return;
+
+		osmFiles.add(osmSource.id);
+		
+		save();
+	}
+	
+	public List<Gtfs> selectedGtfs() {
+		List<data.Gtfs> gtfsList = Application.gtfsDataManager.getGtfs();
+    	
+		List<data.Gtfs> selectedGtfsList = new ArrayList<data.Gtfs>();
+		
+		for(data.Gtfs gtfs : gtfsList) {
+			if(this.gtfsFiles != null && this.gtfsFiles.contains(gtfs.id))
+				selectedGtfsList.add(gtfs);
+		}
+		
+		return selectedGtfsList;
+	}
+	
+	public List<OsmSource> selectedOsm() {
+		List<data.OsmSource> osmList = Application.osmDataManager.getOsm();
+		
+		List<data.OsmSource> selectedOsmList = new ArrayList<data.OsmSource>();
+		
+		for(data.OsmSource osm : selectedOsmList) {
+			if(this.osmFiles != null && this.osmFiles.contains(osm.id))
+				selectedOsmList.add(osm);
+		}
+		
+		return selectedOsmList;
+	}
 		
 	public void save() {
 		

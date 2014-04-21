@@ -1,9 +1,7 @@
-@(selectedGraph: data.Graph, graphs: List[data.Graph], graphId: String, gtfs: List[data.Gtfs])
+@(selectedGraph: data.Graph, graphs: List[data.Graph], graphId: String, gtfs: List[data.Gtfs], selectedGtfs: List[data.Gtfs], osmSources: List[data.OsmSource], selectedOsm: List[data.OsmSource])
 
 @main("OTP Deployer", "graph") {
     
-   @sidebar(graphs, graphId)
-
 	<!-- main content -->
    	<div class="col-lg-9">
 	
@@ -30,7 +28,29 @@
   			<div class="col-lg-2 text-right"><strong>GTFS:</strong></div>
   			<div class="col-lg-10">
 	  				
-	  			<form action="@routes.Graphs.addGtfs()" method="POST">
+	
+				<table class="table  table-hover">
+					<th>Name</th>
+					<th>Description</th>
+					<th>Modified</th>
+					<th>GTFS Id</th>
+					<th>Version Id</th>
+					<th>Managed</th>
+					<tbody>
+					@for(feed <- selectedGtfs) {
+							<tr>
+								<td><a href="@routes.Gtfs.gtfs(feed.id)">@feed.name</a></td>
+								<td>@feed.description</td>
+								<td>@feed.modified</td>
+								<td>@feed.id</td>
+								<td>@feed.currentVersion</td>
+								<td>@if(feed.apiManaged) {<span class="glyphicon glyphicon-ok"></span>}</td>
+							</tr>
+						}	
+					</tbody>
+				</table>
+				
+				<form action="@routes.Graphs.addGtfs()" method="POST">
 	  			
 	  				<input type="hidden" name="graphId" value="@selectedGraph.id"/>
 	  				<div class="row">
@@ -45,18 +65,75 @@
 	  						<input type="submit" class="btn btn-sm primary" value="Add GTFS"/>
 	  					</div>
 	  				</div>
-					
-					 
+			
 				</form>
 				
 				<br/>
 				
 				<a href="@routes.Gtfs.create()"><span class="glyphicon glyphicon-random"></span> Create New GTFS</a>
+		
 			</div>
 		</div>
 		
+		<div class="row" style="margin-top: 1em;">
+  			<div class="col-lg-2 text-right"><strong>OSM:</strong></div>
+  			<div class="col-lg-10">
+  			
+  			
+  			<table class="table  table-hover">
+					<th>Name</th>
+					<th>Description</th>
+					<th>Modified</th>
+					<th>OSM Id</th>
+					<th>Version Id</th>
+					<tbody>
+					@for(osmSource <- selectedOsm) {
+							<tr>
+								<td><a href="@routes.Osm.source(osmSource.id)">@osmSource.name</a></td>
+								<td>@osmSource.description</td>
+								<td>@osmSource.modified</td>
+								<td>@osmSource.id</td>
+								<td>@osmSource.currentVersion</td>
+							</tr>
+						}	
+					</tbody>
+				</table>
+				
+				<form action="@routes.Graphs.addOsm()" method="POST">
+	  			
+	  				<input type="hidden" name="graphId" value="@selectedGraph.id"/>
+	  				<div class="row">
+	  					<div class="col-lg-8">
+			  				<select name="osmSourceId" class="form-control">
+			  					@for(osmSource <- osmSources) {
+			  						<option value="@osmSource.id">@osmSource.name (@osmSource.id)</option>
+			  					}
+	  						</select>
+	  					</div>
+	  					<div class="col-lg-4">
+	  						<input type="submit" class="btn btn-sm primary" value="Add OSM Source"/>
+	  					</div>
+	  				</div>
+			
+				</form>
+				
+				<br/>
+				
+				<a href="@routes.Osm.create()"><span class="glyphicon glyphicon-random"></span> Create New OSM Source</a>
+  			
+  			
+  			
+  			</div>
+
+		</div>
 		
-		
+		<div class="row" style="margin-top: 1em;">
+  			<div class="col-lg-2 text-right"><strong>Builds:</strong></div>
+  			<div class="col-lg-10">
+  			
+  			</div>
+
+		</div>
 	
 				
    	</div>
